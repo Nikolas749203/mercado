@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Mercado Livre - Livre Loja</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    :root {
+      --ml-yellow: #ffe600;
+      --ml-blue: #3483fa;
+      --ml-gray: #ededed;
+      --ml-dark: #333;
+      --ml-card: #fff;
+      --ml-green: #00a650;
+      --ml-font: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--ml-font);
+      background: var(--ml-gray);
+      color: var(--ml-dark);
+    }
+    /* Barra Superior */
+    .ml-header {
+      background: var(--ml-yellow);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      height: 60px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+      gap: 24px;
+    }
+    .ml-logo {
+      display: flex;
+      align-items: center;
+      height: 38px;
+      margin-right: 16px;
+    }
+    .ml-logo svg {
+      height: 38px;
+      width: 135px;
+    }
+    .ml-search-bar {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ml-search-bar input {
+      width: 100%;
+      max-width: 520px;
+      padding: 12px 16px;
+      border: none;
+      border-radius: 2px 0 0 2px;
+      font-size: 16px;
+      outline: none;
+    }
+    .ml-search-bar button {
+      background: var(--ml-blue);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 0 2px 2px 0;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .ml-header-icons {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 20px;
+      color: #666;
+    }
+    .ml-header-icons span {
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .ml-header-icons span:hover {
+      color: var(--ml-blue);
+    }
+
+    /* Menu de Categorias */
+    .ml-cats {
+      background: #fff;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      gap: 36px;
+      align-items: center;
+      padding: 0 24px;
+      min-height: 46px;
+      font-size: 15px;
+      font-weight: 500;
+      color: #333;
+    }
+    .ml-cats a {
+      color: #333;
+      text-decoration: none;
+      padding: 14px 0;
+      transition: color 0.2s;
+    }
+    .ml-cats a:hover {
+      color: var(--ml-blue);
+    }
+
+    /* Container de Produtos */
+    .ml-container {
+      max-width: 1200px;
+      margin: 34px auto 0 auto;
+      padding: 0 18px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
+    }
+    /* Card Produto */
+    .ml-card {
+      background: var(--ml-card);
+      border-radius: 4px;
+      box-shadow: 0 1px 4px rgba(60,60,60,0.06);
+      padding: 0 0 14px 0;
+      transition: box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid #ededed;
+    }
+    .ml-card:hover {
+      box-shadow: 0 8px 22px rgba(0,0,0,0.10);
+      z-index: 2;
+      border-color: var(--ml-blue);
+    }
+    .ml-card-img {
+      width: 100%;
+      height: 190px;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 12px;
+    }
+    .ml-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: transform 0.2s;
+    }
+    .ml-card:hover .ml-card-img img {
+      transform: scale(1.05);
+    }
+    .ml-card-title {
+      font-size: 16.5px;
+      font-weight: 500;
+      padding: 0 14px;
+      color: #222;
+      margin-bottom: 6px;
+      min-height: 42px;
+      line-height: 1.23;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+    .ml-card-desc {
+      font-size: 13px;
+      color: #666;
+      padding: 0 14px;
+      min-height: 36px;
+      margin-bottom: 10px;
+    }
+    .ml-card-price {
+      font-size: 22px;
+      color: var(--ml-green);
+      font-weight: bold;
+      padding: 0 14px;
+      margin-bottom: 12px;
+    }
+    .ml-card-stock {
+      font-size: 13px;
+      color: #888;
+      padding: 0 14px 0 14px;
+      margin-bottom: 8px;
+    }
+    .ml-card-btn {
+      display: none;
+      background: var(--ml-blue);
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 3px;
+      padding: 11px 0;
+      width: 90%;
+      margin: 0 auto;
+      font-size: 15px;
+      margin-top: 7px;
+      transition: background 0.18s;
+      cursor: pointer;
+    }
+    .ml-card:hover .ml-card-btn {
+      display: block;
+    }
+
+    /* Rodapé */
+    .ml-footer {
+      margin-top: 44px;
+      background: #ededed;
+      color: #666;
+      text-align: center;
+      font-size: 14px;
+      padding: 19px 0 24px 0;
+    }
+
+    /* Responsivo */
+    @media (max-width: 800px) {
+      .ml-container {
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 13px;
+      }
+      .ml-header, .ml-cats {
+        padding: 0 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Barra Superior -->
+  <header class="ml-header">
+    <div class="ml-logo">
+      <!-- SVG fictício semelhante ao Mercado Livre -->
+      <svg viewBox="0 0 200 38" fill="none">
+        <ellipse cx="90" cy="19" rx="88" ry="17" fill="#fff" stroke="#3483fa" stroke-width="2"/>
+        <text x="44" y="27" font-family="Arial,Helvetica,sans-serif" font-weight="bold" font-size="22" fill="#3483fa">Livre Loja</text>
+      </svg>
+    </div>
+    <div class="ml-search-bar">
+      <input type="text" placeholder="Buscar produtos, marcas e muito mais…" id="buscaInput">
+      <button id="mlBuscarBtn">&#128269;</button>
+    </div>
+    <div class="ml-header-icons">
+      <span title="Favoritos">&#9825;</span>
+      <span title="Carrinho">&#128722;</span>
+      <span title="Minha conta">&#128100;</span>
+    </div>
+  </header>
+  <!-- Categorias -->
+  <nav class="ml-cats">
+    <a href="#">Ofertas do dia</a>
+    <a href="#">Eletrônicos</a>
+    <a href="#">Roupas Femininas</a>
+    <a href="#">Roupas Masculinas</a>
+    <a href="#">Casa</a>
+    <a href="#">Games</a>
+    <a href="#">Supermercado</a>
+    <a href="#">Ferramentas</a>
+    <a href="#">Beleza</a>
+    <a href="#">Ver mais</a>
+  </nav>
+  <!-- Produtos -->
+  <div class="ml-container" id="produtos"></div>
+  <footer class="ml-footer">
+    &copy; 2025 Livre Loja | Inspirado em Mercado Livre | Este é um site fictício para portfólio
+  </footer>
+  <script>
+    // Produtos exemplo, você pode expandir
+    const produtos = [
+      {
+        nome: "Blusa Feminina Manga Curta Estampa Floral",
+        descricao: "Blusa em malha leve, manga curta, com estampa floral delicada. Ótima para compor looks alegres e descontraídos.",
+        imagem: "https://static.havan.com.br/produtos/mini/184/0/184082_2.jpg",
+        estoque: 10, preco: 39.99
+      },
+      {
+        nome: "Calça Jeans Skinny Feminina",
+        descricao: "Calça jeans skinny com elastano, modelagem que valoriza a silhueta. Ideal para o dia a dia.",
+        imagem: "https://static.havan.com.br/produtos/mini/176/0/176269_2.jpg",
+        estoque: 14, preco: 89.90
+      },
+      {
+        nome: "Vestido Curto Feminino Estampado",
+        descricao: "Vestido curto confeccionado em viscose, estampa moderna, caimento leve e confortável.",
+        imagem: "https://static.havan.com.br/produtos/mini/183/0/183985_2.jpg",
+        estoque: 8, preco: 79.99
+      },
+      {
+        nome: "Jaqueta Jeans Feminina Tradicional",
+        descricao: "Jaqueta jeans feminina, lavagem clássica, ideal para compor looks de meia-estação.",
+        imagem: "https://static.havan.com.br/produtos/mini/153/0/153163_2.jpg",
+        estoque: 6, preco: 119.99
+      },
+      {
+        nome: "Camiseta Masculina Estampada",
+        descricao: "Camiseta masculina em algodão, com estampa moderna. Perfeita para o dia a dia.",
+        imagem: "https://static.havan.com.br/produtos/mini/184/0/184077_2.jpg",
+        estoque: 15, preco: 34.99
+      },
+      {
+        nome: "Calça Jeans Masculina Slim",
+        descricao: "Calça jeans masculina modelagem slim, perfeita para compor looks casuais.",
+        imagem: "https://static.havan.com.br/produtos/mini/176/0/176268_2.jpg",
+        estoque: 10, preco: 99.99
+      },
+      {
+        nome: "Polo Masculina Piquet Lisa",
+        descricao: "Camisa polo masculina em piquet, modelagem tradicional, cor lisa.",
+        imagem: "https://static.havan.com.br/produtos/mini/153/0/153155_2.jpg",
+        estoque: 11, preco: 59.99
+      },
+      {
+        nome: "Moletom Masculino Canguru",
+        descricao: "Moletom masculino com bolso canguru, ideal para dias frios.",
+        imagem: "https://static.havan.com.br/produtos/mini/184/0/184079_2.jpg",
+        estoque: 8, preco: 69.99
+      },
+      {
+        nome: "Shorts Feminino Jeans Cintura Alta",
+        descricao: "Shorts jeans feminino, cintura alta, barra desfiada, visual moderno e descontraído.",
+        imagem: "https://static.havan.com.br/produtos/mini/174/0/174176_2.jpg",
+        estoque: 11, preco: 49.99
+      },
+      {
+        nome: "Legging Feminina Preta",
+        descricao: "Calça legging feminina preta, tecido confortável, ideal para academia ou passeios.",
+        imagem: "https://static.havan.com.br/produtos/mini/174/0/174177_2.jpg",
+        estoque: 13, preco: 39.99
+      }
+    ];
+
+    function renderProdutos(lista) {
+      const c = document.getElementById('produtos');
+      c.innerHTML = '';
+      lista.forEach((prod, i) => {
+        c.innerHTML += `
+        <div class="ml-card">
+          <div class="ml-card-img">
+            <img src="${prod.imagem}" alt="${prod.nome}">
+          </div>
+          <div class="ml-card-title">${prod.nome}</div>
+          <div class="ml-card-desc">${prod.descricao}</div>
+          <div class="ml-card-price">R$ ${prod.preco.toFixed(2)}</div>
+          <div class="ml-card-stock">Estoque: ${prod.estoque > 0 ? prod.estoque : 'Esgotado'}</div>
+          <button class="ml-card-btn" ${prod.estoque<=0?'disabled':''}>Comprar</button>
+        </div>
+        `;
+      });
+    }
+
+    // Busca simples
+    document.getElementById('mlBuscarBtn').onclick = function() {
+      const val = document.getElementById('buscaInput').value.toLowerCase();
+      renderProdutos(produtos.filter(p =>
+        p.nome.toLowerCase().includes(val) ||
+        p.descricao.toLowerCase().includes(val)
+      ));
+    };
+    document.getElementById('buscaInput').addEventListener('keydown', function(e){
+      if(e.key === 'Enter') document.getElementById('mlBuscarBtn').click();
+    });
+
+    renderProdutos(produtos);
+  </script>
+</body>
+</html>
